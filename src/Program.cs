@@ -1,5 +1,6 @@
 ﻿using System;
 using CommandLine;
+using CommandLine.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -11,20 +12,28 @@ namespace p2u
 
     internal class Program
     {
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
-            var result = Parser.Default.ParseArguments<Options>(args);
-            await result.MapResult(async o => await Run(o), MapErrors);
+            var parser = new CommandLine.Parser(with => with.HelpWriter = null);
+            var parserResult = parser.ParseArguments<Options>(args);
+
+            parserResult
+                .WithParsed<Options>(async options => await Run(options))
+                .WithNotParsed(errs => DisplayHelp(parserResult, errs));
         }
 
-        private static Task MapErrors(IEnumerable<Error> errors)
+        static void DisplayHelp<T>(ParserResult<T> result, IEnumerable<Error> errs)
         {
-            foreach (var error in errors)
+            var helpText = HelpText.AutoBuild(result, h =>
             {
-                Console.WriteLine(error.ToString());
-            }
-
-            return Task.CompletedTask;
+                h.AdditionalNewLineAfterOption = false;
+                h.Heading = "p2u 1.0.1";
+                h.Copyright = "Copyright (c) 2019 Celso Jr";
+                h.AutoVersion = false;
+                h.MaximumDisplayWidth = 200;
+                return HelpText.DefaultParsingErrorsHandler(result, h);
+            }, e => e);
+            Console.WriteLine(helpText);
         }
 
         private static async Task Run(Options options)
@@ -35,38 +44,45 @@ namespace p2u
 
                 if (!options.Silent)
                 {
-                    await Console.Out.WriteLineAsync($"Line endings converted!{NewLine}Try to hit the right mouse button now (or SHIFT+CTRL+V)...");
+                    await Feedback(options);
                 }
             }
             else if (options.Vim)
             {
+                // Vim doesn't like white spaces on the left when in Git Bash with Windows Terminal ;)
                 var content = Regex.Replace(GetText(), @"\s+", " ");
                 SetText(content.Replace("\\ ", "\\\n"));
 
                 if (!options.Silent)
                 {
-                    await Console.Out.WriteLineAsync("Line endings converted! Try to hit the right mouse button now (or SHIFT+CTRL+V)...");
+                    await Feedback(options);
                 }
             }
-            else if (options.Powershell)
+            else
             {
                 SetText(GetText().Replace(NewLine, "\n"));
 
                 if (!options.Silent)
                 {
-                    await Console.Out.WriteLineAsync("Line endings converted! Try to hit CTRL+V now...");
+                    await Feedback(options);
                 }
             }
-            else if (options.GitBash || options.Wsl)
-            {
-                SetText(GetText().Replace(NewLine, "\n"));
+        }
 
-                if (!options.Silent)
-                {
-                    await Console.Out.WriteLineAsync("Line endings converted! Try to hit the right mouse button now (or SHIFT+CTRL+V)...");
-                }
+        private static async Task Feedback(Options options)
+        {
+            await Console.Out.WriteLineAsync("Line endings converted!");
+
+            var help = options.Powershell
+                ? "Try to hit CTRL+V now..."
+                : "Try to hit the right mouse button (or CTRL+SHIFT+V) now...";
+
+            await Console.Out.WriteLineAsync(help);
+
+            if (options.Vim)
+            {
+                await Console.Out.WriteLineAsync("Remember that Vim doesn't like white spaces on the left when in Git Bash with Windows Terminal ;)");
             }
-            
         }
     }
 }

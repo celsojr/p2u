@@ -1,14 +1,19 @@
-## p2u (Paste to unix)
+## p2u (Paste to Unix) [![NuGet Version](https://img.shields.io/nuget/v/p2u.svg)](https://www.nuget.org/packages/p2u)
 
-Paste text contents with unix like line endings into Windows Terminal without line breakings
+Paste text content with Unix-like line endings into Windows Terminal without extra line wrapping or spaces. That includes Cmd and Vim.
 
 ### Installation
 
-```dotnet tool install --global p2u --version 1.0.0```
+It requires the .NET Core 3.0+ runtime that you can download from here [dot.net](https://dot.net)
 
-After installation, copy any bash multi line command from the internet
+*.NET Core is a cross-platform version of .NET for building websites, services, and console apps.*
 
-e.g.
+```
+$ dotnet tool install --global p2u
+```
+
+After installation, copy any bash multi-line commands like this from the internet
+
 ```
 helm install --name redis-cluster \
   --set cluster.slaveCount=3 \
@@ -17,8 +22,6 @@ helm install --name redis-cluster \
   --set securityContext.fsGroup=2000 \
   --set securityContext.runAsUser=1000 \
   --set volumePermissions.enabled=true \
-  --set master.persistence.enabled=true \
-  --set slave.persistence.enabled=true \
   --set master.persistence.enabled=true \
   --set master.persistence.path=/data \
   --set master.persistence.size=8Gi \
@@ -30,8 +33,45 @@ helm install --name redis-cluster \
 stable/redis
 ```
 
-convert line endings by doing just
+### Example 
 
-```p2u -w```
+Convert the line endings by doing
 
-and paste into Windows terminal like you do in other unix system terminals
+```
+$ p2u --wsl
+
+Line endings converted!
+Try to hit the right mouse button now (or CTRL+SHIFT+V)...
+```
+
+And then paste into Windows Terminal like you do in other Unix system terminals
+
+### How to use
+```
+USAGE:
+Copy content from anywhere and run it before pasting into Wsl, which is the default:
+  p2u --wsl
+And before pasting into Cmd without any feedback messages:
+  p2u --cmd --silent
+
+  -s, --silent        Run without print any feedback message
+  -c, --cmd           Paste text content into cmd/DOS with Windows Terminal
+  -v, --vim           Paste text content into Vim with Windows Terminal
+  -p, --powershell    Paste text content into Powershell with Windows Terminal
+  -b, --git-bash      Paste text content into Git Bash with Windows Terminal
+  -w, --wsl           (Default: true) Paste text content into WSL (Windows Subsystem for Linux) with Windows Terminal
+  --help              Display this help screen.
+```
+
+### How to uninstall
+
+You can uninstall the tool using the following command
+```
+$ dotnet tool uninstall --global p2u
+```
+
+### How to build and install from source
+Run the **Powershell** script from the root folder
+```
+PS> .\dev-build.ps1
+```

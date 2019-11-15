@@ -6,24 +6,20 @@
 
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>p2u</ToolCommandName>
-    <PackageOutputPath>./bin/out</PackageOutputPath>
 
     <PackageId>p2u</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
-    <Version>1.0.0</Version>
+    <PackageVersion>1.0.1</PackageVersion>
+    <Version>1.0.1</Version>
 
     <Authors>Celso Jr</Authors>
-    <Description>Paste text content with Unix like line endings into Windows Terminal</Description>
+    <Description>Paste text content with Unix like line endings into Windows Terminal without line breakings</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/celsojr/p2u</PackageProjectUrl>
     <RepositoryUrl>https://github.com/celsojr/p2u</RepositoryUrl>
     <PackageTags>wsl wsl2 linux ubuntu unix dotnet</PackageTags>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
-    <NeutralLanguage>english</NeutralLanguage>
     <Copyright>Celso Jr</Copyright>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
   </PropertyGroup>
   
   <ItemGroup>
