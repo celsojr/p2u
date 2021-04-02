@@ -7,11 +7,17 @@ using System.Collections.Generic;
 
 namespace p2u
 {
-    [Verb("dir", HelpText = "Set all profiles with the current folder location as the starting directory")]
+    [Verb("dir", HelpText = "Set all profiles with the current folder location as the starting directory.")]
     class DirOptions
     {
-        [Value(index: 0, Required = true, HelpText = "Desired path (e.g. ${PWD})")]
+        [Value(index: 0, Required = false, HelpText = "Desired path (e.g. ${PWD}).")]
         public string DesiredPath { get; set; }
+
+        [Value(index: 1, Required = false, HelpText = "Fully qualified path to the Windows Terminal settings.json file.")]
+        public string SettingsPath { get; set; }
+
+        [Option('r', "reset", HelpText = "Reset to the Windows Terminal starting directory defaults which is \"%USERPROFILE%\".")]
+        public bool Reset { get; set; }
 
         [Usage(ApplicationAlias = "p2u")]
         public static IEnumerable<Example> Examples
@@ -19,14 +25,15 @@ namespace p2u
             get
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                yield return new Example("If the desired folder is not defined, the user profile home will be used", new DirOptions { DesiredPath = home });
+                yield return new Example("If the desired path is not defined, the user profile home will be used.", new DirOptions { DesiredPath = home });
             }
         }
 
         public static int RunDuplicateAndReturnExitCode(DirOptions options)
         {
             var localPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            var settingsPath = Path.Combine(localPath, @"Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"); // TODO: Allow user to set it manually if needed
+            var settingsPath = options.SettingsPath ??
+                Path.Combine(localPath, @"Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json");
 
             var json = File.ReadAllText(settingsPath);
             var settings = JObject.Parse(json);
@@ -35,13 +42,17 @@ namespace p2u
 
             for (int i = 0; i < profiles.Count; i++)
             {
+                var startingDirectory = options.Reset
+                    ? "%USERPROFILE%"
+                    : options.DesiredPath ?? Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
                 if (profiles[i]["startingDirectory"] == null)
                 {
-                    profiles[i].Last.AddAfterSelf(new JProperty("startingDirectory", options.DesiredPath));
+                    profiles[i].Last.AddAfterSelf(new JProperty("startingDirectory", startingDirectory));
                 }
                 else
                 {
-                    profiles[i]["startingDirectory"] = options.DesiredPath;
+                    profiles[i]["startingDirectory"] = startingDirectory;
                 }
             }
 

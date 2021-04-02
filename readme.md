@@ -4,7 +4,7 @@ Paste text content with Unix-like line endings into Windows Terminal without ext
 
 ### Installation
 
-It requires the .NET Core 3.0+ runtime that you can download from here [dot.net](https://dot.net)
+It requires the .NET Core 5.0+ runtime that you can download from here [dot.net](https://dot.net)
 
 *.NET Core is a cross-platform version of .NET for building websites, services, and console apps.*
 
@@ -38,7 +38,7 @@ stable/redis
 Convert the line endings by doing
 
 ```
-$ p2u --wsl
+$ p2u pst --wsl
 
 Line endings converted!
 Try to hit the right mouse button now (or CTRL+SHIFT+V)...
@@ -48,19 +48,17 @@ And then paste into Windows Terminal like you do in other Unix system terminals
 
 ### How to use
 ```
-USAGE:
-Copy content from anywhere and run it before pasting into Wsl, which is the default:
-  p2u --wsl
-And before pasting into Cmd without any feedback messages:
-  p2u --cmd --silent
+$ p2u --help
+p2u 1.0.3
+Copyright (c) 2021 Celso Jr
 
-  -s, --silent        Run without print any feedback message
-  -c, --cmd           Paste text content into cmd/DOS with Windows Terminal
-  -v, --vim           Paste text content into Vim with Windows Terminal
-  -p, --powershell    Paste text content into Powershell with Windows Terminal
-  -b, --git-bash      Paste text content into Git Bash with Windows Terminal
-  -w, --wsl           (Default: true) Paste text content into WSL (Windows Subsystem for Linux) with Windows Terminal
-  --help              Display this help screen.
+  pst        Paste the text content that you copied from the Internet.
+
+  dir        Set all profiles with the current folder location as the starting directory.
+
+  help       Display more information on a specific command.
+
+  version    Display version information.
 ```
 
 ### How to uninstall
