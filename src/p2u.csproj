@@ -8,8 +8,8 @@
     <ToolCommandName>p2u</ToolCommandName>
 
     <PackageId>p2u</PackageId>
-    <PackageVersion>1.0.1</PackageVersion>
-    <Version>1.0.1</Version>
+    <PackageVersion>1.0.2</PackageVersion>
+    <Version>1.0.2</Version>
 
     <Authors>Celso Jr</Authors>
     <Description>Paste text content with Unix like line endings into Windows Terminal without line breakings</Description>
@@ -18,12 +18,13 @@
     <RepositoryUrl>https://github.com/celsojr/p2u</RepositoryUrl>
     <PackageTags>wsl wsl2 linux ubuntu unix dotnet</PackageTags>
     <Copyright>Celso Jr</Copyright>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.6.0" />
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="TextCopy" Version="1.7.1" />
   </ItemGroup>
 </Project>
