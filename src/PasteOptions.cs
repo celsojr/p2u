@@ -8,25 +8,25 @@ using static TextCopy.Clipboard;
 
 namespace p2u
 {
-    [Verb("pst", HelpText = "Paste the text content that you copied from the Internet")]
+    [Verb("pst", HelpText = "Paste the text content that you copied from the Internet.")]
     class PasteOptions
     {
-        [Option('s', "silent", HelpText = "Run without print any feedback message")]
+        [Option('s', "silent", HelpText = "Run without print any feedback message.")]
         public bool Silent { get; set; }
 
-        [Option('c', "cmd", HelpText = "Paste text content into cmd/DOS with Windows Terminal")]
+        [Option('c', "cmd", HelpText = "Paste text content into cmd/DOS with Windows Terminal.")]
         public bool Cmd { get; set; }
 
-        [Option('v', "vim", HelpText = "Paste text content into Vim with Windows Terminal")]
+        [Option('v', "vim", HelpText = "Paste text content into Vim with Windows Terminal.")]
         public bool Vim { get; set; }
 
-        [Option('p', "powershell", HelpText = "Paste text content into Powershell with Windows Terminal")]
+        [Option('p', "powershell", HelpText = "Paste text content into Powershell with Windows Terminal.")]
         public bool Powershell { get; set; }
 
-        [Option('b', "git-bash", HelpText = "Paste text content into Git Bash with Windows Terminal")]
+        [Option('b', "git-bash", HelpText = "Paste text content into Git Bash with Windows Terminal.")]
         public bool GitBash { get; set; }
 
-        [Option('w', "wsl", HelpText = "Paste text content into WSL (Windows Subsystem for Linux) with Windows Terminal", Default = true)]
+        [Option('w', "wsl", HelpText = "Paste text content into WSL (Windows Subsystem for Linux) with Windows Terminal.", Default = true)]
         public bool Wsl { get; set; }
 
         [Usage(ApplicationAlias = "p2u")]
@@ -34,8 +34,8 @@ namespace p2u
         {
             get
             {
-                yield return new Example("Copy content from anywhere and run it before pasting into Wsl, which is the default", new PasteOptions { Wsl = true });
-                yield return new Example("And before pasting into Cmd without any feedback messages", new PasteOptions { Cmd = true, Silent = true });
+                yield return new Example("Copy content from anywhere and run it before pasting into Wsl, which is the default.", new PasteOptions { Wsl = true });
+                yield return new Example("And before pasting into Cmd without any feedback messages.", new PasteOptions { Cmd = true, Silent = true });
             }
         }
 

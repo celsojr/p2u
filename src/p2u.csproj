@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
 
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>p2u</ToolCommandName>
 
     <PackageId>p2u</PackageId>
-    <PackageVersion>1.0.2</PackageVersion>
-    <Version>1.0.2</Version>
+    <PackageVersion>1.0.3</PackageVersion>
+    <Version>1.0.3</Version>
 
     <Authors>Celso Jr</Authors>
     <Description>Paste text content with Unix like line endings into Windows Terminal without line breakings</Description>
@@ -17,9 +17,9 @@
     <PackageProjectUrl>https://github.com/celsojr/p2u</PackageProjectUrl>
     <RepositoryUrl>https://github.com/celsojr/p2u</RepositoryUrl>
     <PackageTags>wsl wsl2 linux ubuntu unix dotnet</PackageTags>
-    <Copyright>Celso Jr</Copyright>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <Copyright>Copyright (c) 2021 Celso Jr</Copyright>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
   </PropertyGroup>
   
   <ItemGroup>
